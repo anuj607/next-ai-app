@@ -35,13 +35,14 @@ export type ChatTools = InferUITools<typeof tools>;
 export type ChatMessage = UIMessage<never, UIDataTypes, ChatTools>;
 
 export async function POST(req: Request) {
+  const mockmcpToken=process.env.MOCK_MCP_TOKEN;
   try {
     const { messages }: { messages: ChatMessage[] } = await req.json();
     const httpChatTransport = new StreamableHTTPClientTransport(
       new URL("https://app.mockmcp.com/servers/k5dMoO_9IKaM/mcp"),{
         requestInit:{
           headers:{
-            Authorization:"Bearer mcp_m2m_6BkcTVzN3cieSuIEVcpdNFc0n6-bFLjsTUWVlluwigc_4c0a0d6e09864ea6"
+            Authorization:"Bearer "+mockmcpToken
           }
         }
       }
